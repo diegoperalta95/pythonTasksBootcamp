@@ -5,7 +5,7 @@ def userMenu():
         print ('2 - Search')
         print ('3 - Help')
         print ('4 - Exit')
-        menuOption = input ('Ingrese una opción: ')
+        menuOption = input ('Insert an option: ')
 
         if menuOption == '1':
             saveContactFunction()
@@ -15,6 +15,8 @@ def userMenu():
             helpFunction()
         elif menuOption == '4':
             menu = False;   
+        else: 
+            print ('\n Insert a valid option \n')
 
 def helpFunction():
     print ("""\nHelp Menu
@@ -32,18 +34,26 @@ def helpFunction():
 	""")
 
 def saveContactFunction():
+    # Create a contact asking info from the user, and then saves it to a contacts.txt file
+    userName = input ('Insert name: ')
+    userLastName = input ('Insert last name: ')
+    userEmail = input ('Insert email: ')
+    userPhone = input ('Insert phone: ')
+
+    print ('\n Used added! \n')
     with open("contacts.txt", "a") as f:
-        f.write("new text" + '\n')
-        # agregar inputs para meter los datos
+        f.write(userName + ' ' + userLastName + ' ' + userEmail + ' ' + userPhone + '\n')
 
 def searchFunction():
-    userWord = input ('Ingrese una palabra para buscar')
+    # Search function, ask for a word an then searchs for it in contacts.txt
+    userWord = input ('Insert a word for searching: ')
+    matchingContacts = []
     with open('contacts.txt', 'r') as file:
-        # arreglar la busqueda
-        contacts = file.read()
-        if userWord in contacts:
-            print('string exist in a file')
-        else:
-            print('string does not exist in a file')
+        for line in file:
+            if userWord.lower() in line.lower():
+                matchingContacts.append(line.strip())
+    
+    matchingContactsString = [str(contact) for contact in matchingContacts]
+    print('\n' + '\n'.join(matchingContactsString) + '\n')
 
 userMenu()
