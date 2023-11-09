@@ -1,3 +1,5 @@
+import re
+
 def userMenu():
     menu = True
     while menu:
@@ -36,9 +38,21 @@ def helpFunction():
 def saveContactFunction():
     # Create a contact asking info from the user, and then saves it to a contacts.txt file
     userName = input ('Insert name: ')
+    while not userName.isalpha():
+        userName = input ('Insert a valid name: ')
+
     userLastName = input ('Insert last name: ')
+    while not userLastName.isalpha():
+        userLastName = input ('Insert a valid last name: ')
+
     userEmail = input ('Insert email: ')
+    #emailRegex = re.compile(r'^[a-zA-Z0-9]*@+[a-zA-Z0-9.]*$')
+    #while not emailRegex.match(userEmail):
+    #    input ('Insert a valid email: ')
+
     userPhone = input ('Insert phone: ')
+    while not userPhone.isdigit():
+        userPhone = input ('Insert a valid phone number: ')
 
     print ('\n Used added! \n')
     with open("contacts.txt", "a") as f:
