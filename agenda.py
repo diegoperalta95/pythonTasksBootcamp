@@ -63,15 +63,22 @@ def saveContactFunction():
 
 def searchFunction():
     # Search function, ask for a word an then searchs for it in contacts.txt
+    error = False
     userWord = input('Insert a word for searching: ')
     matchingContacts = []
-    with open('contacts.txt', 'r') as file:
-        for line in file:
-            if userWord.lower() in line.lower():
-                matchingContacts.append(line.strip())
-
+    try:
+        with open('contacts.txt', 'r') as file:
+            for line in file:
+                if userWord.lower() in line.lower():
+                    matchingContacts.append(line.strip())
+    except Exception as e:
+        print('\n Contacts were not saved yet\n')
+        error = True
     matchingContactsString = [str(contact) for contact in matchingContacts]
-    print('\n' + '\n'.join(matchingContactsString) + '\n')
+    if (len(matchingContactsString) == 0 and error is False):
+        print('\n Contacts not found with that keyword\n')
+    else:
+        print('\n' + '\n'.join(matchingContactsString) + '\n')
 
 
 userMenu()
